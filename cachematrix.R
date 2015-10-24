@@ -1,15 +1,41 @@
-## Put comments here that give an overall description of what your
-## functions do
+makeCacheMatrix <- function(mat = matrix()){
+  InvMat <- NULL
+  
+  FSet <- function(NewMat){
+    mat <<- NewMat
+    InvMat <<- NULL
+  }
+  FGet <- function(){
+    mat
+  }
+  FSetInv <- function(NewInvMat){
+    InvMat <<- NewInvMat
+  }
+  FGetInv <- function(){
+    InvMat
+  }
 
-## Write a short comment describing this function
+  list( Set=FSet,
+    Get=FGet,
+    SetInv=FSetInv,
+    GetInv=FGetInv)
+}
 
-makeCacheMatrix <- function(x = matrix()) {
-
+cacheSolve <- function(mat, ...){
+ # InvMat <- NULL
+  InvMat <- mat$GetInv()
+  if(!is.null(InvMat)){
+    message("Inverted matrix output is a cached value.")
+    return(InvMat)
+  }
+  MatData <- mat$Get()
+  InvMat <- solve(MatData, ...)
+  mat$SetInv(InvMat)
+  InvMat
 }
 
 
-## Write a short comment describing this function
-
-cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
-}
+#Matrix used for testing inverse matrix
+D_Matrix <- makeCacheMatrix(matrix(c(21:14),nrow = 2,ncol = 2))
+D_Matrix$Get()
+cacheSolve(D_Matrix)
