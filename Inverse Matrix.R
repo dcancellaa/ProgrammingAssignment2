@@ -1,3 +1,4 @@
+
 makeCacheMatrix <- function(mat = matrix()){
   InvMat <- NULL
   
@@ -35,7 +36,8 @@ cacheSolve <- function(mat, ...){
 }
 
 
-#Matrix used for testing inverse matrix
-D_Matrix <- makeCacheMatrix(matrix(c(21:14),nrow = 2,ncol = 2))
+#more test
+D_Matrix <- makeCacheMatrix(matrix(c(11:14),nrow = 2,ncol = 2))
 D_Matrix$Get()
+D_Matrix$GetInv()
 cacheSolve(D_Matrix)
